@@ -31,8 +31,10 @@ namespace OdeTofood
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMvc();
             services.AddSingleton(Configuration);
             services.AddSingleton<IGreeter, Greeter>();
+           
 
         }
 
@@ -59,7 +61,7 @@ namespace OdeTofood
                 app.UseExceptionHandler(new ExceptionHandlerOptions
                 {
                     //use lambda expression to display errors for no dev env.
-
+                    //exception page
                     ExceptionHandler = context => context.Response.WriteAsync("Ooops!!")
 
                 });
@@ -69,6 +71,8 @@ namespace OdeTofood
 
             app.UseMvcWithDefaultRoute();//this middleware will look for incoming http request
                                          //and try to map this request to a C# class
+
+           //there are 3 steps to using MVC framework:  1) intall package, 2) install middleware 3) register the services
 
             /*
             app.UseDefaultFiles();//look for incoming request and see if there is a default file that matches the request
