@@ -67,6 +67,9 @@ namespace OdeTofood
 
             app.UseFileServer();//this line combines both lines below... 
 
+            app.UseMvcWithDefaultRoute();//this middleware will look for incoming http request
+                                         //and try to map this request to a C# class
+
             /*
             app.UseDefaultFiles();//look for incoming request and see if there is a default file that matches the request
             app.UseStaticFiles();//does not serve up a file
@@ -76,19 +79,20 @@ namespace OdeTofood
             //everyhting is configured.
             //This is a new piece of middleware that I've added to the application
 
-            app.UseWelcomePage(new WelcomePageOptions
-            {
-                Path = "/Welcome"
-            });
+            
+            //app.UseWelcomePage(new WelcomePageOptions
+            //{
+            //    Path = "/Welcome"
+            //});
 
-            app.Run(async (context) =>
-            {
+            //app.Run(async (context) =>
+            //{
 
-                //throw new Exception("Something bad happened!");
-                var message = greeter.GetGreeting(); ///Configuration["Greeting"];
+            //    //throw new Exception("Something bad happened!");
+            //    var message = greeter.GetGreeting(); ///Configuration["Greeting"];
 
-                await context.Response.WriteAsync(message);
-            });
+            //    await context.Response.WriteAsync(message);
+            //});
         }
     }
 }
