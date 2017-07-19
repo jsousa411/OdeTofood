@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Routing;
+using OdeTofood.Services;
 
 namespace OdeTofood
 {
@@ -34,6 +36,11 @@ namespace OdeTofood
             services.AddMvc();
             services.AddSingleton(Configuration);
             services.AddSingleton<IGreeter, Greeter>();
+
+            //Scoped entails all pieces of the application see the same 
+            //data for this object, but if a new HTTP request comes in then
+            //a new instantiated object is created
+            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
            
 
         }
@@ -69,11 +76,14 @@ namespace OdeTofood
 
             app.UseFileServer();//this line combines both lines below... 
 
-            app.UseMvcWithDefaultRoute();//this middleware will look for incoming http request
-                                         //and try to map this request to a C# class
+            //app.UseMvcWithDefaultRoute();//this middleware will look for incoming http request
+            //and try to map this request to a C# class
 
-           //there are 3 steps to using MVC framework:  1) intall package, 2) install middleware 3) register the services
+            app.UseMvc(ConfigureRoutes);//gives mvc without any routing rules.  You'll need to pass in the method to route to
+                                        //there are 3 steps to using MVC framework:  1) intall package, 2) install middleware 3) register the services
 
+
+            app.Run(ctx => ctx.Response.WriteAsync("Not Found"));
             /*
             app.UseDefaultFiles();//look for incoming request and see if there is a default file that matches the request
             app.UseStaticFiles();//does not serve up a file
@@ -97,6 +107,28 @@ namespace OdeTofood
 
             //    await context.Response.WriteAsync(message);
             //});
+        }
+
+        private void ConfigureRoutes(IRouteBuilder routeBuilder)
+        {
+            //second parameter describes to MVC framework how to pick apart the parth of URL
+            // for example go to controler /Home and Index is the action name /Home/Index 
+            //{controller} is the class name i.e. HomeController {action} is Index() method
+            //{id?} is the parameter and ? entails the parameter is optional
+            //if no controller is found, default is Home
+            //if not action is found default is Index
+            try
+            {
+                //convention base routing
+                routeBuilder.MapRoute("Default",
+                "{controller=Home}/{action=Index}/{id?}");
+            }
+            catch (Exception error)
+            {
+                System.Console.Write("\nException occured:  " + error.StackTrace.ToString());
+                throw new NotImplementedException();
+            }
+            
         }
     }
 }
