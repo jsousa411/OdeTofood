@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Routing;
 using OdeTofood.Services;
+using OdeTofood.Entities;
 
 namespace OdeTofood
 {
@@ -36,6 +38,10 @@ namespace OdeTofood
             services.AddMvc();
             services.AddSingleton(Configuration);
             services.AddSingleton<IGreeter, Greeter>();
+            services.AddScoped<IRestaurantData, SqlRestaurantData>();
+            services.AddDbContext<OdeToFoodDbContext>(options => options.UserSqlServer(Configuration.GetConnectionString("OdeToFood")));
+            //options.UseSqlServer(Configuration.GetConnectionString("OdeToFood")));
+
 
             //Scoped entails all pieces of the application see the same 
             //data for this object, but if a new HTTP request comes in then

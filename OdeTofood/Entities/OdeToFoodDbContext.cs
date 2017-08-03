@@ -1,0 +1,22 @@
+﻿using Microsoft.EntityFrameworkCore;
+using OdeTofood.Entites;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace OdeTofood.Entities
+{
+    public class OdeToFoodDbContext: DbContext
+    {
+        public OdeToFoodDbContext(DbContextOptions options): base(options)
+        {
+
+
+        }
+
+        public DbSet<Restaurant> Restaurants { get; set; }
+    }
+
+    
+}

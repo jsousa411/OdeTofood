@@ -1,5 +1,21 @@
-﻿@model OdeTofood.Entites.Restaurant
+﻿@using OdeTofood.Controllers
+@model OdeTofood.Entites.Restaurant
+
 
 <h1>@Model.Name</h1>
 
-<div>....details.....</div>
+<div>
+    Id: @Model.Id
+</div>
+
+<div>
+    Cuisine: @Model.Cuisine
+
+</div>
+<div>
+
+    @*@Html.ActionLink("Home", "Index")*@
+    @Html.ActionLink("Home", nameof(HomeController.Index))
+
+</div>
+

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using System.Linq;
+using OdeTofood.Entities;
 
 namespace OdeTofood.Services
 {
@@ -11,9 +12,43 @@ namespace OdeTofood.Services
 
         IEnumerable<Restaurant> GetAll();
         Restaurant Get(int id);
+        Restaurant Add(Restaurant newRestaurant);
     }
+
+    public class SqlRestaurantData:  IRestaurantData
+    {
+        private OdeToFoodDbContext _context;
+
+        public SqlRestaurantData(OdeToFoodDbContext context)
+        {
+            _context = context;
+
+        }
+
+        public Restaurant Add(Restaurant newRestaurant)
+        {
+            _context.Add(newRestaurant);
+            _context.SaveChanges();
+
+            return newRestaurant;
+        }
+
+        public Restaurant Get(int id)
+        {
+            return _context.Restaurants.FirstOrDefault(r => r.Id == id);
+        }
+
+        public IEnumerable<Restaurant> GetAll()
+        {
+            return _context.Restaurants;
+        }
+    }
+
     public class InMemoryRestaurantData : IRestaurantData
     {
+
+        //static constructor, so it initializes this list
+        //of restaurants the first time we use inMemoryRestaurantData
         public InMemoryRestaurantData()
         {
 
@@ -37,6 +72,15 @@ namespace OdeTofood.Services
             return _restaurants.FirstOrDefault(r => r.Id == id);
         }
 
-        List<Restaurant> _restaurants;
+        public Restaurant Add(Restaurant newRestaurant)
+        {
+                               //set id to: the max value of ids in the list Plus add one to it.
+            newRestaurant.Id = _restaurants.Max(r => r.Id) + 1;
+            _restaurants.Add(newRestaurant);
+
+            return newRestaurant;
+
+        }
+        static List<Restaurant> _restaurants;
     }
 }

@@ -1,0 +1,41 @@
+﻿@using OdeTofood.Entites
+@model Restaurant 
+<div>
+
+    <h1>Create</h1>
+
+    <div>
+
+        @*html helpers*@
+
+        @Html.ValidationSummary()
+        @using (Html.BeginForm())
+        {
+            
+            <div>
+
+                @Html.LabelFor(m => m.Name)
+                @*will write input input tag such as name and value
+        The lambda expression has access to model properties*@
+                @*@Html.TextBoxFor(m => m.Name)*@
+              
+                @Html.EditorFor(m => m.Name)
+                @Html.ValidationMessageFor(m=>m.Name)@*//display any validation error*@
+            </div>
+            <div>
+                @Html.LabelFor(m=>m.Cuisine)
+                @Html.DropDownListFor(m => m.Cuisine, Html.GetEnumSelectList(typeof(CuisineType)))
+                @Html.ValidationMessageFor(m => m.Cuisine)@*//display any validation error*@
+            </div>
+
+            <div>
+
+                <input type="submit" value="Save!" />
+
+            </div>
+
+
+        }
+    </div>
+
+</div>
