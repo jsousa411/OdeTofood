@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -39,14 +39,16 @@ namespace OdeTofood
             services.AddSingleton(Configuration);
             services.AddSingleton<IGreeter, Greeter>();
             services.AddScoped<IRestaurantData, SqlRestaurantData>();
-            services.AddDbContext<OdeToFoodDbContext>(options => options.UserSqlServer(Configuration.GetConnectionString("OdeToFood")));
-            //options.UseSqlServer(Configuration.GetConnectionString("OdeToFood")));
-
-
+            services.AddDbContext<OdeToFoodDbContext>(options => 
+                    options.UseSqlServer(Configuration.GetConnectionString("OdeToFood")));
+            
+          
             //Scoped entails all pieces of the application see the same 
             //data for this object, but if a new HTTP request comes in then
             //a new instantiated object is created
-            services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+            //services.AddScoped<IRestaurantData, InMemoryRestaurantData>();
+
+            
            
 
         }
