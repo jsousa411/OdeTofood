@@ -1,29 +1,32 @@
-﻿@model  OdeTofood.ViewModels.HomePageViewModels
+﻿@{ 
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>OdeToFood</title>
-</head>
-<body>
-    <h1>Welcome!</h1>
-    <h3>@Model.CurrentMessage</h3>
-    <table>
+    ViewBag.Title = "Home";
+    
+}
 
-        @foreach (var restaurant in Model.Restaurants)
-        {
 
-            <tr>
+<h1> Welcome!</h1>
+<table>
 
-                <td>
-                    @*<a href="/home/details/@restaurant.Id">Details</a>*@
-                    @Html.ActionLink("View", "Details",new  { id = restaurant.Id });
-                </td>
-                <td>@restaurant.Name</td>
+    @foreach (var restaurant in Model.Restaurants)
+    {
 
-            </tr>
+        <tr>
 
-        }
+            <td>
+                <a asp-action="Details" asp-route-id="@restaurant.Id"> Detail</a>
+            </td>
+            <td>@restaurant.Name</td>
 
-    </table>
-</body>
-</html>
+        </tr>
+
+    }
+
+</table>
+
+<a asp-controller="Home" asp-action="Create">Create</a>
+@section footer{
+
+        <h3>@Model.CurrentMessage</h3>
+
+}
