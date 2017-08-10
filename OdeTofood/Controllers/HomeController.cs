@@ -54,6 +54,51 @@ namespace OdeTofood.Controllers
             return View(model);
         }
 
+       
+
+        [HttpGet] //action to edit restaurant; only respond to http.Get
+        public IActionResult Edit(int id)
+        {
+
+            var model = _restaurantData.Get(id);
+
+            //if no model is available
+
+            if (model == null)
+            {
+
+                return RedirectToAction("Index");
+
+            }
+
+            //return and edit view wtih the restaurant as a model
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(int id, RestaurantEditViewModel model)
+        {
+            //get the restaurant form database
+            var restaurant = _restaurantData.Get(id);
+
+            //ensure the restaurant is found i.e. not already delteted
+            if (ModelState.IsValid)
+            {
+
+                restaurant.Cuisine = model.Cuisine;
+                restaurant.Name = model.Name;
+                _restaurantData.Commit();
+
+
+                return RedirectToAction("Details", new { id = restaurant.Id });
+         
+            }
+
+            return View(restaurant);
+
+        }
+
         [HttpGet]//only responds to an httpGet request
         public IActionResult Create()
         {
@@ -79,6 +124,9 @@ namespace OdeTofood.Controllers
 
 
                 newRestaurant = _restaurantData.Add(newRestaurant);
+
+                //after adding restaurant, commit the data
+                _restaurantData.Commit();
 
                 //redirect upon post of form to avoid duplicate recreation of data on refresh
                 //pass second parameter for routing
