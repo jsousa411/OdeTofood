@@ -13,9 +13,7 @@
     <PackageReference Include="Microsoft.entityFrameworkCore.sqlServer" Version="1.1.2" />
     <PackageReference Include="Microsoft.entityFrameworkCore.Tools" Version="1.1.1" />
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
-    <DotNetCliToolReference Include="Microsoft.AspNetCore.Razor.Tools"
-                              version="1.0.0-preview-final"
-                              type="build" />
+    <DotNetCliToolReference Include="Microsoft.AspNetCore.Razor.Tools" version="1.0.0-preview-final" type="build" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net451'">
     <PackageReference Include="Microsoft.Configuration.FileExtensions" Version="1.3.0" />

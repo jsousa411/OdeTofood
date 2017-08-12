@@ -12,7 +12,13 @@
     </div>
     <footer>
         @RenderSection("Footer", required: false) 
-       
+        
+        @*Common problem people run into... you need to strip the task away by using "await"*@ 
+        @*@Component.InvokeAsync("Greeting")*@
+        
+        @await Component.InvokeAsync("Greeting")
+        
+
         @*@DateTime.Now.Year*@
 
     </footer>
