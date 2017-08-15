@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using OdeTofood.Entites;
 using OdeTofood.Services;
 using OdeTofood.ViewModels;
@@ -6,6 +7,9 @@ using OdeTofood.ViewModels;
 
 namespace OdeTofood.Controllers
 {
+
+    //Adding authentication restriction 08/12/2017 -Joao Sousa
+    [Authorize]
     public class HomeController: Controller
     {
         private IGreeter _greeter;
@@ -24,6 +28,9 @@ namespace OdeTofood.Controllers
         //so the controller decides what to do next
         //you can return whatever type controller wants
         //json, xml, string....etc
+        
+        //allow anonymous use for specific actions
+        [AllowAnonymous]
         public IActionResult Index()
         {           
             var model = new HomePageViewModels();
@@ -53,8 +60,8 @@ namespace OdeTofood.Controllers
             }
             return View(model);
         }
+  
 
-       
 
         [HttpGet] //action to edit restaurant; only respond to http.Get
         public IActionResult Edit(int id)

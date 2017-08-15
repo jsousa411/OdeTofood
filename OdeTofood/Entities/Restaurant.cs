@@ -5,7 +5,12 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
 namespace OdeTofood.Entites
-{
+{ 
+
+    /// <summary>
+    /// Any changes to this  file
+    /// run: add-migration "name"
+    /// </summary>
 
     public enum CuisineType
     {

@@ -1,0 +1,21 @@
+﻿@if(User.Identity.IsAuthenticated)
+{
+
+    //display this UI for authenticated user
+
+ <span>Hello, @User.Identity.Name</span>
+ <form method="post" asp-controller="Account" asp-action="Logout" asp-antiforgery="true">
+
+     <input type="submit" value="Logout"/>
+
+ </form>
+}
+else
+{
+
+    //user is not authenticated then display this UI
+
+    <a asp-controller="Account" asp-action="Register">Register</a>
+    <a asp-controller="Account" asp-action="Login">Login</a>
+
+}

@@ -6,7 +6,11 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    
+    <div>
+
+        @await Component.InvokeAsync("LoginLogout")
+
+    </div>
     <div>
         @RenderBody()
     </div>

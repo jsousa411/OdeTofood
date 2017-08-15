@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Routing;
 using OdeTofood.Services;
 using OdeTofood.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace OdeTofood
 {
@@ -35,12 +36,18 @@ namespace OdeTofood
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc();//add mvc to the application
             services.AddSingleton(Configuration);
-            services.AddSingleton<IGreeter, Greeter>();
-            services.AddScoped<IRestaurantData, SqlRestaurantData>();
+            services.AddSingleton<IGreeter, Greeter>(); //general info to display on footers and advertisement 
+            services.AddScoped<IRestaurantData, SqlRestaurantData>();//entity for database storage
             services.AddDbContext<OdeToFoodDbContext>(options => 
-                    options.UseSqlServer(Configuration.GetConnectionString("OdeToFood")));
+                    options.UseSqlServer(Configuration.GetConnectionString("OdeToFood")));//db connection
+
+            //add core identity framework for authentication
+            services.AddIdentity<User, IdentityRole>()
+                //will allow for injection of dbcontext to provide features to manage users  
+                //and manage sign-in attempts
+                .AddEntityFrameworkStores<OdeToFoodDbContext>();
             
           
             //Scoped entails all pieces of the application see the same 
@@ -83,6 +90,10 @@ namespace OdeTofood
             }
 
             app.UseFileServer();//this line combines both lines below... 
+
+            app.UseIdentity();//add user authentication mechanism before MVC framework is used
+                              //to allow for authentication before hand
+                              //and process 401 request successfully
 
             //app.UseMvcWithDefaultRoute();//this middleware will look for incoming http request
             //and try to map this request to a C# class
