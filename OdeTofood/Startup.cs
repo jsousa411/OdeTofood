@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +11,7 @@ using OdeTofood.Services;
 using OdeTofood.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
+
 namespace OdeTofood
 {
     public class Startup
@@ -24,7 +22,7 @@ namespace OdeTofood
             //add NuGetPackages
             var builder = new ConfigurationBuilder()
                           .SetBasePath(env.ContentRootPath)
-                          .AddJsonFile("appsettings.json")
+                          .AddJsonFile("appsettings.json") //configurable "hello" is set through this file
                           .AddEnvironmentVariables();
 
             Configuration = builder.Build();
@@ -63,7 +61,7 @@ namespace OdeTofood
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
             IApplicationBuilder app, 
-            IHostingEnvironment env, 
+            IHostingEnvironment env, //use this to look at the content root path
             ILoggerFactory loggerFactory,
             IGreeter greeter)
         {
@@ -89,7 +87,13 @@ namespace OdeTofood
                 });
             }
 
+            //serves content from multiple directories
+            //use the static files's middleware behind the scenes
             app.UseFileServer();//this line combines both lines below... 
+
+            //we already have env setup via IHostingEnvironment
+            //pass it in to UseNodeModules
+            app.UseNodeModules(env.ContentRootPath);//serve files from node_modules directory
 
             app.UseIdentity();//add user authentication mechanism before MVC framework is used
                               //to allow for authentication before hand
@@ -105,6 +109,8 @@ namespace OdeTofood
             app.Run(ctx => ctx.Response.WriteAsync("Not Found"));
             /*
             app.UseDefaultFiles();//look for incoming request and see if there is a default file that matches the request
+            
+            //placed this in ApplicationBuilderExtensions to avoid clutter
             app.UseStaticFiles();//does not serve up a file
             */
 
@@ -112,7 +118,7 @@ namespace OdeTofood
             //everyhting is configured.
             //This is a new piece of middleware that I've added to the application
 
-            
+
             //app.UseWelcomePage(new WelcomePageOptions
             //{
             //    Path = "/Welcome"
