@@ -4,12 +4,19 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
-    <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    @*<link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <script src="bootstrap.min.js"></script>*@
+    <environment names="Development">
+        <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+        @*<link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+            <script src="bootstrap.min.js"></script>*@
+    </environment>
+    <environment names="Staging, Produciton">
+        <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.js"
+                asp-fallback-href="/node_modules/bootstrap/dist/css/bootstrap.css"
+                asp-fallback-test-class="sr-only" asp-fallback-test-property="position"/>
+       
+    </environment>
+     
 
-   
-    
 
 </head>
 <body>
@@ -27,19 +34,37 @@
        </div>
    </nav>
     
-    <div>
+    <div class="container">
         @RenderBody()
-    </div>
-    <footer>
-        @RenderSection("Footer", required: false) 
-        
-        @*Common problem people run into... you need to strip the task away by using "await"*@ 
-        @*@Component.InvokeAsync("Greeting")*@
-        
-        @await Component.InvokeAsync("Greeting")
-        
-        @*@DateTime.Now.Year*@
 
-    </footer>
+        <footer>
+            @RenderSection("Footer", required: false)
+
+           
+            @await Component.InvokeAsync("Greeting")
+        </footer>
+    </div>
+    
+
+    <environment names="Development">
+        <script src="/node_modules/jquery/dist/jquery.js"></script>"
+        <script src="/node_modules/jquery-validation/dist/jquery.validate.js"></script>"
+        <script src="/node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>"
+    </environment>
+    <environment names="Staging, Produciton">
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"
+                asp-fallback-src="/node_modules/jquery/dist/jquery.js"
+                asp-fallback-test="window.jquery">
+        </script>
+        <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.16.0/jquery.validate.js"
+                asp-fallback-src="/node_modules/jquery-validation/dist/jquery.validate.js"
+                asp-fallback-test="window.jquery && window.jQuery.validator">
+        </script>
+        <script src="http://ajax.aspnetcdn.com/ajax/mvc/5.2.3/jquery.validate.unobtrusive.js"
+                asp-fallback-src="/node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"
+                asp-fallback-test="window.jquery && window.jQuery.validator">
+        </script>
+    </environment>
+    
 </body>
 </html>

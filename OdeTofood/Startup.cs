@@ -104,34 +104,7 @@ namespace OdeTofood
 
             app.UseMvc(ConfigureRoutes);//gives mvc without any routing rules.  You'll need to pass in the method to route to
                                         //there are 3 steps to using MVC framework:  1) intall package, 2) install middleware 3) register the services
-
-
-            app.Run(ctx => ctx.Response.WriteAsync("Not Found"));
-            /*
-            app.UseDefaultFiles();//look for incoming request and see if there is a default file that matches the request
-            
-            //placed this in ApplicationBuilderExtensions to avoid clutter
-            app.UseStaticFiles();//does not serve up a file
-            */
-
-            //app.UseWelcomePage();//allows you to see if asp.net core application can come up on the server correctly and
-            //everyhting is configured.
-            //This is a new piece of middleware that I've added to the application
-
-
-            //app.UseWelcomePage(new WelcomePageOptions
-            //{
-            //    Path = "/Welcome"
-            //});
-
-            //app.Run(async (context) =>
-            //{
-
-            //    //throw new Exception("Something bad happened!");
-            //    var message = greeter.GetGreeting(); ///Configuration["Greeting"];
-
-            //    await context.Response.WriteAsync(message);
-            //});
+                                        
         }
 
         private void ConfigureRoutes(IRouteBuilder routeBuilder)
