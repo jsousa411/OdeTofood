@@ -24,5 +24,9 @@
   <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <None Include="node_modules\images\Montenegro_1.jpg" />
+  </ItemGroup>
 
 </Project>

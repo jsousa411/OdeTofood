@@ -9,16 +9,27 @@
 
 <h1> Welcome!</h1>
 
-@foreach (var restaurant in Model.Restaurants)
+@if (User.Identity.IsAuthenticated)
+{  
+    //upon login display user's data
+    @foreach (var restaurant in Model.Restaurants)
+    {
+        @Html.Partial("_Summary", restaurant)
+    }
+
+    <div>
+
+        <a class="btn btn-primary" asp-action="Create">Create</a>
+
+    </div>
+}
+else
 {
-    @Html.Partial("_Summary", restaurant)
+    //for unauthenticated user just display 
+    //home page with welcome banner
+    @Html.Partial("_Welcome")
+
 }
 
-<div>
 
-    <a class="btn btn-primary" asp-action="Create">Create</a>
-
-</div>
-
- 
 

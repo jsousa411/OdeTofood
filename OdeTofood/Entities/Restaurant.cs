@@ -14,7 +14,7 @@ namespace OdeTofood.Entites
 
     public enum CuisineType
     {
-
+        //possible name of restaurants
         None,
         Italian,
         French,
@@ -24,13 +24,14 @@ namespace OdeTofood.Entites
     public class Restaurant
     {
 
-        public int Id { get; set; }
-
-       // [DataType(DataType.Password)] //modifies text field input to be hidden
-       [Required, MaxLength(80)]
+        public int Id { get; set; }//restaurant ID
+        // [DataType(DataType.Password)] //modifies text field input to be hidden
+        [Required, MaxLength(80)]
         [Display(Name="Restaurant Name")]
-        public string Name { get; set; }
-        public CuisineType Cuisine { get; set; }
+        public string Name { get; set; }//restaurant name
+        public CuisineType Cuisine { get; set; }//restaurant cuisine type
     
     }
+
+    
 }

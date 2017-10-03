@@ -8,11 +8,15 @@
         <link href="/node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
         @*<link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
             <script src="bootstrap.min.js"></script>*@
+        <link href="/node_modules/bootstrap/bootstrap-social.css" rel="stylesheet" />
+
     </environment>
     <environment names="Staging, Produciton">
         <link rel="stylesheet" href="http://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.js"
                 asp-fallback-href="/node_modules/bootstrap/dist/css/bootstrap.css"
                 asp-fallback-test-class="sr-only" asp-fallback-test-property="position"/>
+        <link rel="stylesheet" href="https://badge.fury.io/js/bootstrap-social.svg"
+              asp-fallback-href="/node_modules/bootstrap/bootstrap-social.css" />
        
     </environment>
      
@@ -24,7 +28,7 @@
    <nav class="navbar navbar-default">
        <div class="container-fluid">
            <div class="navbar-header">
-               <a class="navbar-brand" href="/">OdeToFood</a>
+               <a class="navbar-brand" href="/">Aptomy</a>
            </div>
            <div class="navbar-right">
 
@@ -35,21 +39,48 @@
    </nav>
     
     <div class="container">
+       
         @RenderBody()
 
         <footer>
-            @RenderSection("Footer", required: false)
+            <div class="container">
+                <h3>
+                   
 
-           
-            @await Component.InvokeAsync("Greeting")
+                </h3>
+                <hr />
+                <div class="  text-center center-block">
+                    <p class="txt-railway">@RenderSection("Footer", required: false)
+
+
+                    @await Component.InvokeAsync("Greeting") </p>
+                    <br />
+
+                </div>
+                <div>
+
+                    @*<iframe src="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=https%3A%2F%2Fdev.twitter.com%2Fweb%2Ftweet-button&via=twitterdev&related=twitterapi%2Ctwitter&text=custom%20share%20text&hashtags=example%2Cdemo"
+                        
+                            title="Twitter Tweet Button"
+                            style="border: 0; overflow: hidden;">
+                    </iframe>
+                    <a href="https://platform.twitter.com/widgets/tweet_button.html?size=l&url=https%3A%2F%2Fdev.twitter.com%2Fweb%2Ftweet-button&via=twitterdev&related=twitterapi%2Ctwitter&text=custom%20share%20text&hashtags=example%2Cdemo">
+                        <i class="fa fa-twitter-square fa-3x social">
+                        </i>
+                    </a>*@
+                   
+                </div>
+                <hr />
+            </div>
+             
         </footer>
     </div>
     
 
     <environment names="Development">
-        <script src="/node_modules/jquery/dist/jquery.js"></script>"
-        <script src="/node_modules/jquery-validation/dist/jquery.validate.js"></script>"
-        <script src="/node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>"
+        <script src="/node_modules/jquery/dist/jquery.js"></script>
+        <script src="/node_modules/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="/node_modules/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
     <environment names="Staging, Produciton">
         <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.js"

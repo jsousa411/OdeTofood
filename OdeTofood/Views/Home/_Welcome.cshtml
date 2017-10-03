@@ -1,0 +1,32 @@
+﻿
+
+ 
+@*
+Users who are not logged in get to this home page    
+
+*@
+
+@*
+@model OdeTofood.ViewModels.PictureDisplay
+
+@{ 
+    ViewBag.Title = "Welcome";
+    Layout = "~/Views/Home/_Welcome.cshtml";
+    var imgPath = Model.ImagePath;
+
+
+}
+
+*@
+<section>
+    <div>
+        <p>
+            Join us for bicycle ride information tracking and data analysis.
+        </p>
+         
+        @*<img src="@Url.Content("~/Views/images/Montenegro_1.jpg")" alt="Image"  style="height:200px;width:200px;" />*@
+
+        @*<img src="@Url.Content(imgPath )" alt="Image" />*@
+
+    </div>
+</section>

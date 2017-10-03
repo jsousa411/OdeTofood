@@ -30,7 +30,8 @@ namespace Microsoft.AspNetCore.Builder
             var provider = new PhysicalFileProvider(path);
 
             //
-            var options = new StaticFileOptions();
+            var options = new StaticFileOptions();//css static files
+            var optionsBrowse = new StaticFileOptions();
 
             //only try to responde if request path
             //contains "/node_modules
@@ -42,6 +43,14 @@ namespace Microsoft.AspNetCore.Builder
             //allow for static files
             //on project's folder to be served
             app.UseStaticFiles(options);
+
+            //setup images files to be accessible
+            //optionsBrowse.RequestPath = "/node_modules/images";
+            //optionsBrowse.FileProvider = provider;
+
+            //Root = "C:\\dev\\aptomy\\OdeTofood\\OdeTofood\\node_modules\\"
+            //C:/dev/aptomy/OdeTofood/OdeTofood/node_modules
+            app.UseDirectoryBrowser("/node_modules");
 
             return app;
 

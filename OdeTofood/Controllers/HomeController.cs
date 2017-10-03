@@ -22,6 +22,13 @@ namespace OdeTofood.Controllers
 
         }
 
+        public IActionResult getImage()
+        {
+            PictureDisplay m = new PictureDisplay();
+
+            return View(m.ImagePath);
+            
+        }
 
         //action result is the formal way to 
         //encapsulate the decision of a controller,
