@@ -9,6 +9,7 @@ namespace OdeTofood.ViewModels
 
        public string CurrentMessage { get; set; }
        public IEnumerable<Restaurant> Restaurants { get; set; }
+       public string Image { get; set; }
 
     }
 }

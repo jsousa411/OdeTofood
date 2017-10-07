@@ -40,10 +40,11 @@ namespace OdeTofood.Controllers
         [AllowAnonymous]
         public IActionResult Index()
         {           
+              
             var model = new HomePageViewModels();
             model.Restaurants = _restaurantData.GetAll();
             model.CurrentMessage = _greeter.GetGreeting();
-
+            model.Image = "~/node_modules/images/Montenegro_1.jpg";
             //API responses friendly
             // return new ObjectResult(model);
 

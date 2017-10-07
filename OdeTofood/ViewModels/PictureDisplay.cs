@@ -9,7 +9,7 @@ namespace OdeTofood.ViewModels
     public class PictureDisplay
     {
 
-        
+         
        
         public String ImagePath
         {
